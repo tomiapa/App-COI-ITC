@@ -1,4 +1,4 @@
-# flutter_app
+# Aplicacion COI-ITC
 
 A new Flutter application.
 
