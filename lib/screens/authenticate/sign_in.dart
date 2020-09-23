@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/pantallas/autenticacion/auth.dart';
-import 'package:flutter_app/compartidos/constants.dart';
+import 'package:flutter_app/screens/services/auth.dart';
+import 'package:flutter_app/shared/constants.dart';
 
-class Register extends StatefulWidget {
+class SignIn extends StatefulWidget {
 
   final Function toggleView;
-  Register({ this.toggleView }); 
+  SignIn({ this.toggleView }); 
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _SignInState createState() => _SignInState();
 }
 
-class _RegisterState extends State<Register> {
-
+class _SignInState extends State<SignIn> {
+  
   final AuthService _auth = AuthService();
   final _formKey =  GlobalKey<FormState>();
+  bool loading = false;
 
   // Text field state
   String email = '';
@@ -23,16 +24,16 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(    //loading ? Loading() : 
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
         elevation: 0.0,
-        title: Text('Sign up to Application'),
+        title: Text('Sign in to Application'),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person), 
-            label: Text('Sign In'),
+            label: Text('Register'),
             onPressed: (){
               widget.toggleView();
             }
@@ -55,7 +56,7 @@ class _RegisterState extends State<Register> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
-                decoration: textInputDecoration.copyWith(hintText: 'password'),
+                decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 obscureText: true,
                 validator: (val) => val.length < 6 ? 'Enter a password 6+ chars longs' : null,
                 onChanged: (val) {
@@ -63,29 +64,54 @@ class _RegisterState extends State<Register> {
                 }
               ),
               SizedBox(height: 20.0),
+              /*
               RaisedButton(
                 onPressed: () async {
                   // check the form for empty spots and validity
                   bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
                   if (emailValid) {
                     if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.registerWhitEmailAndPassword(email, password);
+                      setState(() => loading = false);
+                      dynamic result = await _auth.SignInWhitEmailAndPassword(email, password);
                       print(result);
                       if (result == null) {
-                        setState(() => error = 'Write a valid email');
-                      }
+                      setState(() => error = 'Write a valid email');
+                      loading = false;
                     }
                   } else {
                     setState(
                         () => error = 'Write a valid email you moron!');
+                        loading = false;
                   }
-                },
+                }},
                 color: Colors.pink[300],
                 child: Text(
-                  'Register',
+                  'Sign in ',
                   style: TextStyle(color: Colors.white),
                 )
-              ),
+              ),*/
+              ///*
+              RaisedButton(
+                color: Colors.pink[400],
+                child: Text(
+                  'sign in',
+                  style: TextStyle(color: Colors.white),
+                ),
+                
+                onPressed: () async {
+                  if (_formKey.currentState.validate()){
+                    setState(() => loading = true);
+                    dynamic result = await _auth.SignInWhitEmailAndPassword(email, password);
+                    if(result == null){ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++EVALUAR PORQUE NO CAPTURA EL ERROR
+                      setState(() {
+                        error = 'could not sign in with those credentials';
+                        loading = false;
+                      });
+                    }
+                  }
+                }
+                
+              ),//*/
               SizedBox(height: 12.0),
               Text(
                 error,

@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/models/userR.dart';
 
-class UserR {
-
-  final String uid;
-
-  UserR({ this.uid });
-}
+/* 
+For those who are watching this in 2020 , you should change part of code:
+AuthResult ---> UserCredential
+FirebaseUser --> User
+ UserCredential userCredential = await _auth.signInAnonymously();
+ User user = userCredential.user;
+*/ 
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
