@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_app/screens/autenticacion/auth.dart';
+import 'package:flutter_app/screens/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_app/pantallas/autenticacion/register.dart';
-import 'package:flutter_app/pantallas/autenticacion/auth.dart';
+import 'package:flutter_app/screens/wrapper.dart';
+import 'package:flutter_app/models/UserR.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,13 +13,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  @override
+  @override/*
   Widget build(BuildContext context){
     return StreamProvider<UserR>.value(
       value: AuthService().user,
       child: MaterialApp(
-        home: Register(),
+        home: Wrapper(),
       ),
     );
-  }
+  }*/
 }
