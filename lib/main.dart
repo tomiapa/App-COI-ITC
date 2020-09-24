@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_app/screens/autenticacion/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_app/screens/wrapper.dart';
-
+import 'package:flutter_app/pantallas/autenticacion/register.dart';
+import 'package:flutter_app/pantallas/autenticacion/auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
     return StreamProvider<UserR>.value(
       value: AuthService().user,
       child: MaterialApp(
-        home: Wrapper(),
+        home: Register(),
       ),
     );
   }
